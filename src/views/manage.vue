@@ -26,11 +26,11 @@
                         <el-button type="primary" v-on:click="getdata" style=" height: 28px; line-height:0;">查询</el-button>
                     </el-form-item>
            </el-form>
-           <p style="textAlign:right">
-            <i class="el-icon-close" style="color:#09f;marginRight:10px" @click="handleDel">删除</i>
-            <i class="el-icon-delete" style="color:#09f;" @click="handleXg">类别修改</i>
+           <p class="p">
+            <i class="el-icon-close bt" @click="handleDel">删除</i>
+            <i class="el-icon-delete bt" @click="handleXg">类别修改</i>
            </p>
-          <el-table :data="leixin"   border  highlight-current-row style="width:100%; margin-bottom:20px; margin-top:5px;">
+          <el-table :data="leixin" @selection-change="handleSelectionChange" ref="multipleTable"  border  highlight-current-row style="width:100%; margin-bottom:20px; margin-top:5px;">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
                     <el-table-column prop="infoType" label="信息类型" width="80">
@@ -51,7 +51,7 @@
         <!--分页-->
         <div class="block">
             <span class="demonstration">显示第{{currentPage1}}到第{{size}}条记录,总共{{total}}条记录</span>
-            <el-pagination layout="total, prev, pager, next" style="marginRight:10px;margin-top:10px;float:right"
+            <el-pagination layout="total, prev, pager, next" style="marginRight:10px;margin-top:-8px;float:right"
             v-show="pge"
             :total="total"
             :current-page.sync="currentPage1"
@@ -60,13 +60,13 @@
         </div>
 
        <h4 class="table-gbottom">信息类别管理</h4>
-          <p style="textAlign:right">
-            <i class="el-icon-close" style="color:#09f;" @click="handleDel">删除</i>
-            <i class="el-icon-edit-outline" style="color:#09f;" @click="handleXg">类别修改</i>
-            <i class="el-icon-plus" style="color:#09f;" @click="innerVisible = true">新增</i>
-            <i class="el-icon-refresh" style="color:#09f;marginRight:10px" @click="handleref">刷新</i>
+          <p class="p">
+            <i class="el-icon-close bt" @click="handleDell">删除</i>
+            <i class="el-icon-edit-outline bt"  @click="handleXg">类别修改</i>
+            <i class="el-icon-plus bt"  @click="innerVisible = true">新增</i>
+            <i class="el-icon-refresh bt"  @click="handleref">刷新</i>
           </p>
-       <el-table :data="leibie" border  highlight-current-row style="width:100%;margin-top:5px;margin-bottom:15px;">
+       <el-table @selection-change="lbchange" ref="lb" :data="leibie" border  highlight-current-row style="width:100%;margin-top:5px;margin-bottom:15px;">
                     <el-table-column type="selection" width="55">
                     </el-table-column>
                     <el-table-column prop="typeId" label="类别编号" width="300">
@@ -79,7 +79,7 @@
        <!--分页-->
         <div class="block">
             <span class="demonstration">显示第{{currentPage1}}到第{{size}}条记录</span>
-            <el-pagination layout="total, prev, pager, next" style="marginRight:10px;margin-top:10px;float:right"
+            <el-pagination layout="total, prev, pager, next" style="marginRight:10px;margin-top:-8px;float:right"
             v-show="pge"
             :total="total"
             :current-page.sync="currentPage1"
@@ -122,7 +122,8 @@ import axios from 'axios'
               currentPage1:1,
               size:4,
               pge:true,
-              innerVisible:false
+              innerVisible:false,
+              multipleTable:''
             }
         },
         methods:{
@@ -158,13 +159,32 @@ import axios from 'axios'
             dialogVisible(){
                 
             },
-            handleDel(){
-                //类型删除
-                
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+                //console.log('vaaal',val)
+           },   
+           //类型删除
+            handleDel(val){
+                if(this.multipleSelection==null){
+                   console.log('111')
+                }
+                else{
+                     console.log('vaaal', this.multipleSelection)
+                }
             },
             handleXg(){},
-            handleDell(){
-                //信息类别删除
+            //信息类别删除
+            lbchange(val){
+                this.lbmutip=val;
+                console.log('33',val)
+            },
+            handleDell(val){
+                if(this.lbmutip==null){
+                   console.log('221')
+                }
+                else{
+                     console.log('al', this.lbmutip)
+                }
                 
             },
             handleXgg(){},
@@ -188,9 +208,22 @@ import axios from 'axios'
   .table-gbottom{
       font-size: 18px;
   }
+  .p{
+      text-align: right;
+      margin-bottom: 10px
+  }
+  .bt{
+    color:#09f;
+    margin-right:10px;
+    cursor: pointer;
+  }
 </style>
 
 <style>
+.el-dialog .el-dialog__body{
+    margin-left: 10px;
+    padding-left: 20px
+}
  .dialog-content   .el-table td, .el-table th.is-leaf,.el-table--border, .el-table--group{
   border-color: #CFD1D3;
   border-radius: 3px;

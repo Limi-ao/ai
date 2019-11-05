@@ -200,7 +200,7 @@ import axios from 'axios'
             return{
                 k2:["0","1","2","3",'4'],
                 isDisabled:true,   //tree树结构，是否可以操纵
-                dialogVisible: false,//信息管理
+                dialogVisible: false, //信息管理
                 activeName: 'first',
                 ruleForm: {
                     name:'',
@@ -221,11 +221,10 @@ import axios from 'axios'
                 shijiTable:[],    //右侧的table的实际数据
                 dataTree: [],
                 defaultProps: {
-                children: 'children',
-                label: 'name'
+                    children: 'children',
+                    label: 'name'
                 },
-                options: [//选择
-                    ],
+                options: [],   //选择
                 value: '',
                 disli:[],
                 infoId:0,
@@ -515,6 +514,12 @@ import axios from 'axios'
 </style>
 
 <style>
+/* 管理model框头部样式 */
+.el-dialog .el-dialog__header{
+    text-align: left;
+    padding-top:10px;
+    border-bottom:1px solid #ccc
+}
 .qbb-content .item .el-form-item__label {
     color:#000;
     font-size: 14px;
@@ -543,14 +548,7 @@ import axios from 'axios'
   
     text-align: center;
 }
-.qbb-content .el-dialog__wrapper .el-dialog__header{
-  /* text-align: center;
-  padding: 0px 20px 10px; */
-  background: #3398CC;
-  text-align: left;
-  height: 50px;
-  line-height: 50px;
-}
+
 .qbb-content .el-dialog__close.el-icon.el-icon-close{
     margin-top:-20px;
     padding-top: -10px;
@@ -559,11 +557,13 @@ import axios from 'axios'
       margin-left:30px;
       margin-right: 30px;}
  .qbb-content .el-dialog__wrapper .el-dialog{
-  color: #ffffff;
+  color: #fff;
   background: #fff;
   background-size: 100% 100%  ;
 }
-.demo-ruleForm >>> .el-form-item__label{
-    font-size:14px;
+.el-dialog__title{
+    color: #000;
+    text-align: left;
+    
 }
 </style>
